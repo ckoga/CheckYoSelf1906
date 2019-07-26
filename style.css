@@ -68,6 +68,8 @@ form label {
 }
 
 form input {
+  border: 2px solid #1F1F3D;
+  border-radius: 2.5px;
   height: 5vh;
   width: 100%;
 }
@@ -80,6 +82,7 @@ form img {
 
 form button {
   background-color: #1F1F3D;
+  border-radius: 2.5px;
   border: none;
   color: #FFFFFF;
   height: 5vh;
@@ -87,11 +90,15 @@ form button {
 }
 
 #filter-btn {
+  border-top: 1px solid #3F6377;
   margin-top: 10%;
 }
 
 main {
   background-color: #F3F6F7;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   height: 100vh;
   padding: 2%;
   width: 65%;
@@ -102,6 +109,7 @@ img {
 }
 
 article {
+  background-color: #FAFDFF;
   border: 1px solid #C7D3D8;
   height: fit-content;
   width: fit-content;
@@ -112,12 +120,19 @@ h2 {
 }
 
 article header {
-  border-bottom: 1px solid#C7D3D8;
+  border-bottom: 1px solid #C7D3D8;
+  margin-bottom: 1%;
 }
 
 article footer {
+  border-top: 1px solid #C7D3D8;
   display: flex;
   justify-content: space-between;
+  margin-top: 1%;
+}
+
+article p {
+  font-size: .5em;
 }
 
 .footer__left,
@@ -128,6 +143,49 @@ article footer {
 
 article img {
   width: 13%;
+}
+
+article p {
+  margin: 0;
+}
+
+/**** urgent article ****/
+
+.article--urgent {
+  background-color: #FFE89D;
+  border: 1px solid #FFC30C;
+  height: fit-content;
+  width: fit-content;
+}
+
+h2 {
+  margin: 3% 0 3% 4%;
+}
+
+.article__header--urgent {
+  border-bottom: 1px solid #FFC30C;
+  margin-bottom: 1%;
+}
+
+.article__footer--urgent {
+  border-top: 1px solid #FFC30C;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1%;
+}
+
+article p {
+  font-size: .5em;
+}
+
+.footer__left--urgent,
+.footer__right--urgent {
+  text-align: center;
+  width:30%;
+}
+
+article img {
+  width: 17%;
 }
 
 article p {
