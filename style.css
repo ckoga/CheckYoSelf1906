@@ -80,6 +80,10 @@ form img {
   width: 5vh;
 }
 
+form img:hover {
+  background-color: #EF4A23;
+}
+
 form button {
   background-color: #1F1F3D;
   border-radius: 2.5px;
@@ -87,6 +91,10 @@ form button {
   color: #FFFFFF;
   height: 5vh;
   margin: 3% 0;
+}
+
+form button:hover {
+  background-color: #EF4A23;
 }
 
 #filter-btn {

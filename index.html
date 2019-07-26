@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
   <title>CheckYoSelf</title>
   <link href="normalize.css" rel="stylesheet">
@@ -23,9 +24,9 @@
       <label class="form__label" for="task-input">Task Item</label>
       <div class="form__div">
         <input class="form__label" id="task-input">
-        <img src="images/plus.svg" alt="white plus sign">
+        <img src="images/plus.svg" alt="white plus sign" id="task-list-btn" disabled>
       </div>
-      <button class="form__button" id="make-task-btn">Make Task List</button>
+      <button class="form__button" id="make-task-btn" disabled>Make Task List</button>
       <button class="form__button" id="clear-btn">Clear All</button>
       <button class="form__button" id="filter-btn">Filter by Urgency</button>
     </form>
@@ -55,7 +56,7 @@
         </section>
         <footer class="article__footer--urgent">
           <div class="footer__left--urgent">
-            <img src="images/urgent.svg" alt="white lighting bolt" id="urgent-btn">
+            <img src="images/urgent-active.svg" alt="white lighting bolt" id="urgent-btn">
             <p>URGENT</p>
           </div>
           <div class="footer__right--urgent">
@@ -65,5 +66,8 @@
         </footer>
       </article>
     </main>
-  </section>  
+  </section>
+  <script type="text/javascript" src="todo-list.js"></script>
+  <script type="text/javascript" src="main.js"></script>
 </body>
+</html>
