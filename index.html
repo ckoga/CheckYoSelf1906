@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+  <title>CheckYoSelf</title>
+  <link href="normalize.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav class="nav">
+    <h1 class="nav__header">CHECK <span>YO'</span> SELF</h1>
+    <div class="nav__container">
+      <img class="nav__img" src="images.search.svg" alt="Blue magnifying glass">
+      <input type="search" placeholder="Search">
+    </div>
+  </nav>
+  <form class="form">
+    <label class="form__label" for="title-input">Task Title</label>
+    <input class="form__input" id="title-input">
+    <section class="section">
+    </section>
+    <div class="form__div">
+      <label class="form__label" for="task-input">Task Item</label>
+      <input class="form__label" id="task-input">
+      <img src="images.plus.svg" alt="white plus sign">
+    </div>
+    <button class="form__button" id="make-task-btn">Make Task List</button>
+    <button class="form__button" id="clear-btn">Clear All</button>
+    <hr>
+    <button class="form__button" id="filter-btn">Filter by Urgency</button>
+  </form>
+  <main>
+    <article class="article">
+      <header class="article__header">
+        <h2>Task Title</h2>
+      </header>
+      <footer class="article__footer">
+        <div class="footer__left">
+          <img src="images.urgent.svg" alt="white lighting bolt">
+          <p>URGENT</p>
+        </div>
+        <div class="footer__right">
+          <img src="images.delete.svg" alt="blue x inside a white circle">
+          <p>DELETE</p>
+        </div>
+      </footer>
+    </article>
+  </main>
+</body>
