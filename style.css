@@ -80,8 +80,14 @@ form img {
   width: 5vh;
 }
 
-form img:hover {
+form img:hover,
+form button:hover {
   background-color: #EF4A23;
+}
+
+form img:disabled,
+form button:disabled {
+  background-color: grey;
 }
 
 form button {
@@ -91,10 +97,6 @@ form button {
   color: #FFFFFF;
   height: 5vh;
   margin: 3% 0;
-}
-
-form button:hover {
-  background-color: #EF4A23;
 }
 
 #filter-btn {
