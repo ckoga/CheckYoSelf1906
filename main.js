@@ -18,8 +18,8 @@ function formBtnEventHandler(e) {
     } else {
       createPending();
     }
-    
   }
+  
   if (e.target.closest('#make-task-list')) {
     createToDoList();
   }
