@@ -31,7 +31,7 @@ function clearInputs() {
 function createPending() {
   document.querySelector(".section").insertAdjacentHTML("afterbegin",
     `  <ul class="section__list">
-          <li class="section__task">${toDoInput.value}</li>
+          <li class="section__task"><input type="image" src="images/delete.svg" id="dlt-pending" data-id=${Date.now()}>${toDoInput.value}</li>
         </ul>`
   );
   clearInputs();
