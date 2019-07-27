@@ -65,6 +65,7 @@ form {
 form ul{
   list-style: none;
   margin: 1%;
+  padding: 0 0 0 3%;
 }
 
 .section__task {
@@ -97,7 +98,7 @@ form input {
   width: 100%;
 }
 
-#task-list-btn {
+#pending-task-btn {
   background-color: #1F1F3D;
   padding: 1%;
   width: 5vh;
