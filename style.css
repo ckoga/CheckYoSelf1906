@@ -57,6 +57,30 @@ form {
   width: 35%;
 }
 
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  margin: 3% 0;
+}
+
+form li {
+  height: 1rem;
+  list-style-image: url('images/delete.svg');
+  position: relative;
+}
+
+form li:before {
+  /* background-image: url('images/delete.svg'); */
+  /* content: ''; */
+  height: 10px;
+  width: 10px;
+  list-style-image: url('images/delete.svg');
+
+}
+
 .form__div {
   display: flex;
   width: 100%;
@@ -71,6 +95,7 @@ form input {
   border: 2px solid #1F1F3D;
   border-radius: 2.5px;
   height: 5vh;
+  margin-bottom: 1%;
   width: 100%;
 }
 

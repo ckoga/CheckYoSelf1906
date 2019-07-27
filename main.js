@@ -10,9 +10,9 @@ form.addEventListener('click', plusBtnEventHandler);
 
 function plusBtnEventHandler(e) {
   e.preventDefault();
-  if (e.target.closest('#task-list-btn') [
+if (e.target.closest('#task-list-btn')) {
     createPending();
-  ])
+  }
 }
 
 function disableBtns() {
@@ -24,6 +24,15 @@ function disableBtns() {
   };
 };
 
+function clearInputs() {
+  toDoInput.value = '';
+}
+
 function createPending() {
-  document.querySelector('.section').insertAdjacentHTML('afterbegin', ``)
+  document.querySelector(".section").insertAdjacentHTML("afterbegin",
+    `  <ul class="section__list">
+          <li class="section__task">${toDoInput.value}</li>
+        </ul>`
+  );
+  clearInputs();
 }
