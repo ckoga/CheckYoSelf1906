@@ -2,20 +2,29 @@ var taskArray = [];
 var titleInput = document.querySelector('#title-input');
 var toDoInput = document.querySelector('#task-input');
 var createPendingBtn = document.querySelector('#make-task-btn');
-var createListBtn = document.querySelector('#task-list-btn');
-var form = document.querySelector('form')
+var createListBtn = document.querySelector('#task-list-list');
+var form = document.querySelector('form');
+
 
 form.addEventListener('focusout', disableBtns);
-form.addEventListener('click', plusBtnEventHandler);
+form.addEventListener('click', formBtnEventHandler);
 
-function plusBtnEventHandler(e) {
+function formBtnEventHandler(e) {
   e.preventDefault();
-if (e.target.closest('#task-list-btn')) {
+  if (e.target.closest('#task-list-btn')) {
     createPending();
   }
+  if (e.target.closest('#make-task-list') {
+    
+  })
 }
 
 function disableBtns() {
+  disablePlusBtn();
+  disableListBtn();
+}
+
+function disablePlusBtn() {
   console.log('hi');
   if (titleInput.value === '' || toDoInput.value === '') {
     createPendingBtn.disabled = true;
@@ -23,6 +32,14 @@ function disableBtns() {
     createPendingBtn.disabled = false;
   };
 };
+
+function disableListBtn() {
+  if (document.querySelector('.section').innerHTML === '') {
+    createListBtn.disabled = true;
+  } else {
+    createListBtn.disabled = false;
+  }
+}
 
 function clearInputs() {
   toDoInput.value = '';
