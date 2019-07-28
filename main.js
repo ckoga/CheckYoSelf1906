@@ -11,6 +11,13 @@ var pendingSection = document.querySelector('.section');
 form.addEventListener('focusout', disablePlusBtn);
 form.addEventListener('click', formBtnEventHandler);
 
+window.addEventListener('load', onload);
+
+function onload() {
+  onLoadParse();
+  loadParesedArray();
+}
+
 function formBtnEventHandler(e) {
   e.preventDefault();
   if (e.target.closest('#pending-task-btn')) {
@@ -116,7 +123,8 @@ function parseArray() {
 }
 
 function onLoadParse() {
-  JSON.parse(localStorage.getItem('array')) === null ? taskArray = [] : taskArray = JSON.parse(localStorage.getItem('array'))
+  JSON.parse(localStorage.getItem('array')) === null ? taskArray = [] : taskArray = JSON.parse(localStorage.getItem('array'));
+
 }
 
 function insertArticle(obj) {
@@ -127,7 +135,9 @@ function insertArticle(obj) {
           <h2>${obj.title}</h2>
         </header>
         <section class='article__section'>
-        ${obj.task}
+          <ul class='aticle__ul'>
+            ${createArticleList()}
+          </ul>
         </section>
         <footer class='article__footer'>
           <div class='footer__left'>
@@ -141,4 +151,19 @@ function insertArticle(obj) {
         </footer>
       </article>`
   );
+}
+
+function createArticleList() {
+  var ul = '';
+  var array = parseArray();
+  for (var i = 0; i < array.task.length; i ++) {
+    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${array.id}>${array.task[i]}</li>`
+  }
+  return ul
+}
+
+function loadParesedArray() {
+for (var i = 0; i < taskArray.length; i++) {
+  insertArticle(taskArray[i])
+}
 }
