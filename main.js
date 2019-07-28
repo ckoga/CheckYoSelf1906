@@ -93,13 +93,13 @@ function createToDoList() {
 };
 
 function makeToDoList() {
-  var toDoList = createToDoList();
-  console.log(toDoList)
-  var newList = new TodoList(titleInput.value, toDoList, false, Date.now());
-  taskArray.push(newList);
-  newList.saveToStorage();
-  // insertAdjacentHTML(newList);
-  console.log(newList)
+  var stepsArray = createToDoList();
+  console.log(stepsArray)
+  var taskList = new TodoList({title: titleInput.value, task: stepsArray, urgent: false, id: Date.now()});
+  taskArray.push(taskList);
+  taskList.saveToStorage();
+  insertAdjacentHTML(taskList);
+  console.log(taskList)
 }
 
 function insertArticle(obj) {
