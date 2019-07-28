@@ -1,17 +1,25 @@
 var taskArray = [];
-var titleInput = document.querySelector('#title-input');
-var toDoInput = document.querySelector('#task-input');
-var createPendingBtn = document.querySelector('#make-task-list');
-var createListBtn = document.querySelector('#pending-task-btn');
-var form = document.querySelector('form');
-var main = document.querySelector('main');
-var pendingSection = document.querySelector('.section');
+var titleInput = document.querySelector("#title-input");
+var toDoInput = document.querySelector("#task-input");
+var createPendingBtn = document.querySelector("#make-task-list");
+var createListBtn = document.querySelector("#pending-task-btn");
+var form = document.querySelector("form");
+var main = document.querySelector("main");
+var pendingSection = document.querySelector(".section");
 
+form.addEventListener("focusout", disablePlusBtn);
+form.addEventListener("click", formBtnEventHandler);
+main.addEventListener('click', mainEventHandler);
 
-form.addEventListener('focusout', disablePlusBtn);
-form.addEventListener('click', formBtnEventHandler);
+window.addEventListener("load", onload);
 
-window.addEventListener('load', onload);
+function mainEventHandler(e) {
+  e.preventDefault();
+
+  if (e.target.closest('#checkbox')) {
+    changeCheckBox(e);
+  }
+}
 
 function onload() {
   onLoadParse();
@@ -20,39 +28,39 @@ function onload() {
 
 function formBtnEventHandler(e) {
   e.preventDefault();
-  if (e.target.closest('#pending-task-btn')) {
-    if (toDoInput.value === '') {
-      return
+  if (e.target.closest("#pending-task-btn")) {
+    if (toDoInput.value === "") {
+      return;
     } else {
       createPending();
     }
   }
 
-  if (e.target.closest('#make-task-list')) {
+  if (e.target.closest("#make-task-list")) {
     makeToDoList();
   }
 
-  if (e.target.closest('.section__task')) {
+  if (e.target.closest(".section__task")) {
     deletePending(e);
   }
 
-  if (e.target.closest('#clear-btn')) {
+  if (e.target.closest("#clear-btn")) {
     clearAllInputs();
   }
 }
 
 function disablePlusBtn() {
-  if (titleInput.value === '' || toDoInput.value === '') {
+  if (titleInput.value === "" || toDoInput.value === "") {
     createPendingBtn.disabled = true;
-    document.querySelector('#clear-btn').disabled = true;
+    document.querySelector("#clear-btn").disabled = true;
   } else {
     createPendingBtn.disabled = false;
-    document.querySelector('#clear-btn').disabled = false;
-  };
-};
+    document.querySelector("#clear-btn").disabled = false;
+  }
+}
 
 function disableListBtn() {
-  if (pendingSection.innerHTML === '') {
+  if (pendingSection.innerHTML === "") {
     createListBtn.disabled = true;
   } else {
     createListBtn.disabled = false;
@@ -60,19 +68,22 @@ function disableListBtn() {
 }
 
 function clearTaskInput() {
-  toDoInput.value = '';
+  toDoInput.value = "";
 }
 
 function clearAllInputs() {
-  toDoInput.value = '';
-  titleInput.value = '';
-  pendingSection.innerHTML = '';
+  toDoInput.value = "";
+  titleInput.value = "";
+  pendingSection.innerHTML = "";
 }
 
 function createPending() {
-  pendingSection.insertAdjacentHTML('afterbegin',
+  pendingSection.insertAdjacentHTML(
+    "afterbegin",
     `  <ul class='section__list'>
-          <li class='section__task'><input type='image' src='images/delete.svg' id='dlt-pending' data-id=${Date.now()}>${toDoInput.value}</li>
+          <li class='section__task'><input type='image' src='images/delete.svg' id='dlt-pending' data-id=${Date.now()}>${
+      toDoInput.value
+    }</li>
         </ul>`
   );
   clearTaskInput();
@@ -80,13 +91,13 @@ function createPending() {
 }
 
 function deletePending(e) {
-  if (e.target.closest('#dlt-pending')) {
-    e.target.closest('.section__task').remove();
+  if (e.target.closest("#dlt-pending")) {
+    e.target.closest(".section__task").remove();
   }
 }
 
 function createToDoList() {
-  var toDoArray = Array.from(document.querySelectorAll('.section__task'));
+  var toDoArray = Array.from(document.querySelectorAll(".section__task"));
 
   var toDoList = [];
 
@@ -94,11 +105,11 @@ function createToDoList() {
     toDoList.push({
       body: toDoArray[i].innerText,
       checked: false,
-      id: Date.now() + i,
+      id: Date.now() + i
     });
-  };
+  }
   return toDoList;
-};
+}
 
 function makeToDoList() {
   var stepsArray = createToDoList();
@@ -107,29 +118,30 @@ function makeToDoList() {
     title: titleInput.value,
     task: stepsArray,
     urgent: false,
-    id: Date.now(),
+    id: Date.now()
   });
   taskArray.push(taskList);
   taskList.saveToStorage(taskArray);
-  parseArray(taskArray)
+  parseArray(taskArray);
   insertArticle(taskList);
-  console.log(taskList)
+  console.log(taskList);
 }
 
 function parseArray() {
- var printArray = JSON.parse(localStorage.getItem('array'));
+  var printArray = JSON.parse(localStorage.getItem("array"));
 
- return printArray[printArray.length - 1];
+  return printArray[printArray.length - 1];
 }
 
 function onLoadParse() {
-  JSON.parse(localStorage.getItem('array')) === null ? taskArray = [] : taskArray = JSON.parse(localStorage.getItem('array'));
-
+  JSON.parse(localStorage.getItem("array")) === null
+    ? (taskArray = [])
+    : (taskArray = JSON.parse(localStorage.getItem("array")));
 }
 
 function insertArticle(obj) {
   main.insertAdjacentHTML(
-    'afterbegin',
+    "afterbegin",
     `<article class='article' ${obj.id}>
         <header class='article__header'>
           <h2>${obj.title}</h2>
@@ -154,16 +166,37 @@ function insertArticle(obj) {
 }
 
 function createArticleList() {
-  var ul = '';
+  var ul = "";
   var array = parseArray();
-  for (var i = 0; i < array.task.length; i ++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${array.id}>${array.task[i]}</li>`
+  for (var i = 0; i < array.task.length; i++) {
+    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${
+      array.id
+    }>${array.task[i]}</li>`;
   }
-  return ul
+  return ul;
 }
 
 function loadParesedArray() {
-for (var i = 0; i < taskArray.length; i++) {
-  insertArticle(taskArray[i])
+  for (var i = 0; i < taskArray.length; i++) {
+    insertArticle(taskArray[i]);
+  }
 }
-}
+
+function changeCheckBox(e) {
+  var box = document.querySelectorAll('#checkbox');
+  console.log(box)
+  console.log(box[0].dataset)
+  // for (var i = 0; i < box.length; i++) {
+  
+    if (e.target[i].dataset )
+    if (e.target.classList.contains('active')) {
+      box[i].classList.remove('active');
+      box[i].src = 'images/checkbox.svg';
+    } else {
+      box[i].classList.add('active');
+      box[i].src = 'images/checkbox-active.svg'
+    }
+  }
+// }
+
+
