@@ -80,6 +80,7 @@ function deletePending(e) {
 
 function createToDoList() {
   var toDoArray = Array.from(document.querySelectorAll('.section__task'));
+
   var toDoList = [];
 
   for (var i = 0; i < toDoArray.length; i++) {
@@ -94,10 +95,15 @@ function createToDoList() {
 
 function makeToDoList() {
   var stepsArray = createToDoList();
-  console.log(stepsArray)
-  var taskList = new TodoList({title: titleInput.value, task: stepsArray, urgent: false, id: Date.now()});
+
+  var taskList = new TodoList({
+    title: titleInput.value,
+    task: stepsArray,
+    urgent: false,
+    id: Date.now(),
+  });
   taskArray.push(taskList);
-  taskList.saveToStorage();
+  taskList.saveToStorage(taskArray);
   insertAdjacentHTML(taskList);
   console.log(taskList)
 }
