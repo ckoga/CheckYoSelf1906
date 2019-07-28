@@ -109,8 +109,10 @@ function makeToDoList() {
   console.log(taskList)
 }
 
-function parseArray(array) {
- return JSON.parse(localStorage.getItem('array'))
+function parseArray() {
+ var printArray = JSON.parse(localStorage.getItem('array'));
+
+ return printArray[printArray.length - 1];
 }
 
 function onLoadParse() {
@@ -118,7 +120,6 @@ function onLoadParse() {
 }
 
 function insertArticle(obj) {
-  JSON.parse(localStorage.getItem('obj'));
   main.insertAdjacentHTML(
     'afterbegin',
     `<article class='article' ${obj.id}>
