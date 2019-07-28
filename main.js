@@ -4,6 +4,7 @@ var toDoInput = document.querySelector('#task-input');
 var createPendingBtn = document.querySelector('#make-task-list');
 var createListBtn = document.querySelector('#pending-task-btn');
 var form = document.querySelector('form');
+var main = document.querySelector('main');
 var pendingSection = document.querySelector('.section');
 
 
@@ -21,7 +22,7 @@ function formBtnEventHandler(e) {
   }
 
   if (e.target.closest('#make-task-list')) {
-    createToDoList();
+    makeToDoList();
   }
 
   if (e.target.closest('.section__task')) {
@@ -36,8 +37,10 @@ function formBtnEventHandler(e) {
 function disablePlusBtn() {
   if (titleInput.value === '' || toDoInput.value === '') {
     createPendingBtn.disabled = true;
+    document.querySelector('#clear-btn').disabled = true;
   } else {
     createPendingBtn.disabled = false;
+    document.querySelector("#clear-btn").disabled = false;
   };
 };
 
@@ -85,7 +88,40 @@ function createToDoList() {
       checked: false,
       id: Date.now() + i,
     });
-  }
-  return toDoList
-  console.log(createToDoList());
+  };
+  return toDoList;
+};
+
+function makeToDoList() {
+  var toDoList = createToDoList();
+  console.log(toDoList)
+  var newList = new TodoList(titleInput.value, toDoList, false, Date.now());
+  taskArray.push(newList);
+  newList.saveToStorage();
+  // insertAdjacentHTML(newList);
+  console.log(newList)
+}
+
+function insertArticle(obj) {
+  main.insertAdjacentHTML(
+    "afterbegin",
+    `<article class="article" ${obj.id}>
+        <header class="article__header">
+          <h2>${obj.title}</h2>
+        </header>
+        <section class="article__section">
+        ${obj.body}
+        </section>
+        <footer class="article__footer">
+          <div class="footer__left">
+            <img src="images/urgent.svg" alt="white lighting bolt" id="urgent-btn">
+            <p>URGENT</p>
+          </div>
+          <div class="footer__right">
+            <img src="images/delete.svg" alt="blue x inside a white circle" id="x-article-btn">
+            <p>DELETE</p>
+          </div>
+        </footer>
+      </article>`
+  );
 }
