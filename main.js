@@ -7,7 +7,7 @@ var form = document.querySelector('form');
 var pendingSection = document.querySelector('.section');
 
 
-form.addEventListener('focusout', disableBtns);
+form.addEventListener('focusout', disablePlusBtn);
 form.addEventListener('click', formBtnEventHandler);
 
 function formBtnEventHandler(e) {
@@ -19,15 +19,18 @@ function formBtnEventHandler(e) {
       createPending();
     }
   }
-  
+
   if (e.target.closest('#make-task-list')) {
     createToDoList();
   }
-}
 
-function disableBtns() {
-  disablePlusBtn();
-  // disableListBtn();
+  if (e.target.closest('.section__task')) {
+    deletePending(e);
+  }
+
+  if (e.target.closest('#clear-btn')) {
+    clearAllInputs();
+  }
 }
 
 function disablePlusBtn() {
@@ -46,8 +49,14 @@ function disableListBtn() {
   }
 }
 
-function clearInputs() {
+function clearTaskInput() {
   toDoInput.value = '';
+}
+
+function clearAllInputs() {
+  toDoInput.value = '';
+  titleInput.value = '';
+  pendingSection.innerHTML = '';
 }
 
 function createPending() {
@@ -56,10 +65,27 @@ function createPending() {
           <li class="section__task"><input type="image" src="images/delete.svg" id="dlt-pending" data-id=${Date.now()}>${toDoInput.value}</li>
         </ul>`
   );
-  clearInputs();
+  clearTaskInput();
   disableListBtn();
 }
 
+function deletePending(e) {
+  if (e.target.closest('#dlt-pending')) {
+    e.target.closest('.section__task').remove();
+  }
+}
+
 function createToDoList() {
-  console.log(document.querySelectorAll('.section__task'))
+  var toDoArray = Array.from(document.querySelectorAll('.section__task'));
+  var toDoList = [];
+
+  for (var i = 0; i < toDoArray.length; i++) {
+    toDoList.push({
+      body: toDoArray[i].innerText,
+      checked: false,
+      id: Date.now() + i,
+    });
+  }
+  return toDoList
+  console.log(createToDoList());
 }
