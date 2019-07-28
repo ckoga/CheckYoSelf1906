@@ -40,7 +40,7 @@ function disablePlusBtn() {
     document.querySelector('#clear-btn').disabled = true;
   } else {
     createPendingBtn.disabled = false;
-    document.querySelector("#clear-btn").disabled = false;
+    document.querySelector('#clear-btn').disabled = false;
   };
 };
 
@@ -63,9 +63,9 @@ function clearAllInputs() {
 }
 
 function createPending() {
-  pendingSection.insertAdjacentHTML("afterbegin",
-    `  <ul class="section__list">
-          <li class="section__task"><input type="image" src="images/delete.svg" id="dlt-pending" data-id=${Date.now()}>${toDoInput.value}</li>
+  pendingSection.insertAdjacentHTML('afterbegin',
+    `  <ul class='section__list'>
+          <li class='section__task'><input type='image' src='images/delete.svg' id='dlt-pending' data-id=${Date.now()}>${toDoInput.value}</li>
         </ul>`
   );
   clearTaskInput();
@@ -104,27 +104,37 @@ function makeToDoList() {
   });
   taskArray.push(taskList);
   taskList.saveToStorage(taskArray);
-  insertAdjacentHTML(taskList);
+  parseArray(taskArray)
+  insertArticle(taskList);
   console.log(taskList)
 }
 
+function parseArray(array) {
+ return JSON.parse(localStorage.getItem('array'))
+}
+
+function onLoadParse() {
+  JSON.parse(localStorage.getItem('array')) === null ? taskArray = [] : taskArray = JSON.parse(localStorage.getItem('array'))
+}
+
 function insertArticle(obj) {
+  JSON.parse(localStorage.getItem('obj'));
   main.insertAdjacentHTML(
-    "afterbegin",
-    `<article class="article" ${obj.id}>
-        <header class="article__header">
+    'afterbegin',
+    `<article class='article' ${obj.id}>
+        <header class='article__header'>
           <h2>${obj.title}</h2>
         </header>
-        <section class="article__section">
-        ${obj.body}
+        <section class='article__section'>
+        ${obj.task}
         </section>
-        <footer class="article__footer">
-          <div class="footer__left">
-            <img src="images/urgent.svg" alt="white lighting bolt" id="urgent-btn">
+        <footer class='article__footer'>
+          <div class='footer__left'>
+            <img src='images/urgent.svg' alt='white lighting bolt' id='urgent-btn'>
             <p>URGENT</p>
           </div>
-          <div class="footer__right">
-            <img src="images/delete.svg" alt="blue x inside a white circle" id="x-article-btn">
+          <div class='footer__right'>
+            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn'>
             <p>DELETE</p>
           </div>
         </footer>
