@@ -17,7 +17,7 @@ function mainEventHandler(e) {
   e.preventDefault();
 
   if (e.target.closest('#checkbox')) {
-    changeCheckBox(e);
+    toggleCheckBox(e);
   }
 }
 
@@ -69,6 +69,12 @@ function disableListBtn() {
 
 function clearTaskInput() {
   toDoInput.value = "";
+}
+
+function clearForm() {
+  titleInput.value = "";
+  toDoInput.value = "";
+  pendingSection.innerHTML = "";
 }
 
 function clearAllInputs() {
@@ -124,6 +130,7 @@ function makeToDoList() {
   taskList.saveToStorage(taskArray);
   parseArray(taskArray);
   insertArticle(taskList);
+  clearForm();
   console.log(taskList);
 }
 
@@ -169,9 +176,7 @@ function createArticleList() {
   var ul = "";
   var array = parseArray();
   for (var i = 0; i < array.task.length; i++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${
-      array.id
-    }>${array.task[i]}</li>`;
+    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${array.id + i}>${array.task[i].body}</li>`;
   }
   return ul;
 }
@@ -182,21 +187,21 @@ function loadParesedArray() {
   }
 }
 
-function changeCheckBox(e) {
-  var box = document.querySelectorAll('#checkbox');
-  console.log(box)
-  console.log(box[0].dataset)
-  // for (var i = 0; i < box.length; i++) {
-  
-    if (e.target[i].dataset )
-    if (e.target.classList.contains('active')) {
-      box[i].classList.remove('active');
-      box[i].src = 'images/checkbox.svg';
+function toggleCheckBox(e) {
+     if (e.target.classList.contains('active')) {
+      e.target.classList.remove('active');
+      e.target.src = 'images/checkbox.svg';
     } else {
-      box[i].classList.add('active');
-      box[i].src = 'images/checkbox-active.svg'
+      e.target.classList.add('active');
+      e.target.src = 'images/checkbox-active.svg'
     }
-  }
+} 
+
+// function getTaskId(e) {
+//   return e.target.closest('.article__li').dataset.id;
 // }
 
+// function getIndex(e) {
+  
+// }
 
