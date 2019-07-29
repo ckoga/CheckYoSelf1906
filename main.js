@@ -134,19 +134,6 @@ function makeToDoList() {
   // console.log(taskList);
 }
 
-// function parseArray() {
-//   var printArray = JSON.parse(localStorage.getItem("array"));
-  
-//   var arrayOfTasks = [];
-//   printArray.forEach(obj => {
-//     arrayOfTasks.push(obj.task)
-//   })
-//   console.log(arrayOfTasks)
-//   return arrayOfTasks
-//     // var obj = printArray.shift()
-//   // return obj;
-// }
-
 function onLoadParse() {
   return JSON.parse(localStorage.getItem("array")) === null
     ? (taskArray = [])
@@ -201,8 +188,7 @@ function createArticleList(obj) {
 function loadParesedArray() {
   for (var i = 0; i < taskArray.length; i++) {
     insertArticle(taskArray[i]);
-    // console.log(taskArray[i].id)
-  }
+    }
 }
 
 function toggleCheckBox(e) {
