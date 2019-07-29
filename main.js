@@ -134,18 +134,21 @@ function makeToDoList() {
   // console.log(taskList);
 }
 
-function parseArray() {
-  var printArray = JSON.parse(localStorage.getItem("array"));
-
-  for (var i = 0; i < printArray.length; i++) {
-    var obj = printArray.shift()
-  }
-    // console.log(obj);
-  return obj;
-}
+// function parseArray() {
+//   var printArray = JSON.parse(localStorage.getItem("array"));
+  
+//   var arrayOfTasks = [];
+//   printArray.forEach(obj => {
+//     arrayOfTasks.push(obj.task)
+//   })
+//   console.log(arrayOfTasks)
+//   return arrayOfTasks
+//     // var obj = printArray.shift()
+//   // return obj;
+// }
 
 function onLoadParse() {
-  JSON.parse(localStorage.getItem("array")) === null
+  return JSON.parse(localStorage.getItem("array")) === null
     ? (taskArray = [])
     : (taskArray = JSON.parse(localStorage.getItem("array")));
 }
@@ -158,8 +161,8 @@ function insertArticle(obj) {
           <h2>${obj.title}</h2>
         </header>
         <section class='article__section'>
-          <ul class='aticle__ul'>
-            ${createArticleList()}
+          <ul class='article__ul'>
+            ${createArticleList(obj)}
           </ul>
         </section>
         <footer class='article__footer'>
@@ -174,23 +177,31 @@ function insertArticle(obj) {
         </footer>
       </article>`
       );
-      // console.log(obj.task)
 }
 
-function createArticleList() {
+function getId(id) {
+    for (var i = 0; i < taskArray.length; i++) {
+      if (taskArray[i].id === id) {
+      }
+      return taskArray[i];
+    };
+};
+
+
+function createArticleList(obj) {
   var ul = "";
-  var obj = parseArray();
-  obj.task.forEach(task => { 
-  ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${task.id}>${task.body}</li>`});
-  console.log(ul)
-  return ul;
-  // array.forEach(obj => {
-  //   obj.task})
-}
+  console.log(obj.task)
+  for (var i = 0; i < obj.task.length; i++) {
+    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${obj.id}>${obj.task[i].body}</li>`;
+  }
+  return ul
+};
+
 
 function loadParesedArray() {
   for (var i = 0; i < taskArray.length; i++) {
     insertArticle(taskArray[i]);
+    // console.log(taskArray[i].id)
   }
 }
 
@@ -208,9 +219,9 @@ function toggleCheckedProperty() {
   
 }
 
-// function getTaskId(e) {
-//   return e.target.closest('.article__li').dataset.id;
-// }
+function getTaskId(e) {
+  return e.target.closest('.article__li').dataset.id;
+}
 
 // function getIndex(e) {
   
