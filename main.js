@@ -128,16 +128,20 @@ function makeToDoList() {
   });
   taskArray.push(taskList);
   taskList.saveToStorage(taskArray);
-  parseArray(taskArray);
+  // parseArray(taskArray);
   insertArticle(taskList);
   clearForm();
-  console.log(taskList);
+  // console.log(taskList);
 }
 
 function parseArray() {
   var printArray = JSON.parse(localStorage.getItem("array"));
 
-  return printArray[printArray.length - 1];
+  for (var i = 0; i < printArray.length; i++) {
+    var obj = printArray.shift()
+  }
+    // console.log(obj);
+  return obj;
 }
 
 function onLoadParse() {
@@ -169,16 +173,19 @@ function insertArticle(obj) {
           </div>
         </footer>
       </article>`
-  );
+      );
+      // console.log(obj.task)
 }
 
 function createArticleList() {
   var ul = "";
-  var array = parseArray();
-  for (var i = 0; i < array.task.length; i++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${array.id + i}>${array.task[i].body}</li>`;
-  }
+  var obj = parseArray();
+  obj.task.forEach(task => { 
+  ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${task.id}>${task.body}</li>`});
+  console.log(ul)
   return ul;
+  // array.forEach(obj => {
+  //   obj.task})
 }
 
 function loadParesedArray() {
@@ -196,6 +203,10 @@ function toggleCheckBox(e) {
       e.target.src = 'images/checkbox-active.svg'
     }
 } 
+
+function toggleCheckedProperty() {
+  
+}
 
 // function getTaskId(e) {
 //   return e.target.closest('.article__li').dataset.id;
