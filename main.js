@@ -114,15 +114,18 @@ function createToDoList() {
   var toDoArray = Array.from(document.querySelectorAll(".section__task"));
 
   var toDoList = [];
-
-  for (var i = 0; i < toDoArray.length; i++) {
-    toDoList.push({
-      body: toDoArray[i].innerText,
-      checked: false,
-      id: Date.now() + i
-    });
+  if (document.querySelectorAll(".section__task").innerHTML === '') {
+    return 
+    } else {
+      for (var i = 0; i < toDoArray.length; i++) {
+        toDoList.push({
+          body: toDoArray[i].innerText,
+          checked: false,
+          id: Date.now() + i
+        });
+      }
+      return toDoList;
   }
-  return toDoList;
 }
 
 function makeToDoList() {
@@ -248,13 +251,14 @@ function removeArticle(e) {
   var article = e.target.closest('article')
   
   var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
-  console.log(array)
 
   if (array.length === listArray[getListIndex(e)].tasks.length) {
-    e.target.closest("article").remove();
-    // taskArray[getListIndex(e)].deleteFromStorage
-  }
-}
+    console.log(getListIndex(e))
+    listArray[getListIndex(e)].deleteFromStorage(listArray);
+    listArray.splice(getListIndex(e), 1)
+    article.remove();
+  };
+};
 
 function toggleUrgent(e) {
   if (e.target.classList.contains('active')) {
@@ -270,5 +274,6 @@ function toggleUrgent(e) {
 
 function changeUrgent(e) {
   var listObj = listArray[getListIndex(e)];
+  console.log(listObj)
   listObj.updateToDo(listArray);
 }

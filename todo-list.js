@@ -10,8 +10,8 @@ class TodoList {
     localStorage.setItem('array', JSON.stringify(glbArray));
   }
 
-  deleteFromStorage() {
-  
+  deleteFromStorage(glbArray) {
+    localStorage.setItem("array", JSON.stringify(glbArray));
   }
 
   updateToDo(glbArray) {
