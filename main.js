@@ -126,7 +126,7 @@ function makeToDoList() {
 
   var taskList = new TodoList({
     title: titleInput.value,
-    task: stepsArray,
+    tasks: stepsArray,
     urgent: false,
     id: Date.now()
   });
@@ -139,7 +139,7 @@ function makeToDoList() {
 function onLoadParse() {
   return JSON.parse(localStorage.getItem("array")) === null
     ? (listArray = [])
-    : (listArray = JSON.parse(localStorage.getItem("array")));
+    : (listArray = JSON.parse(localStorage.getItem("array")).map(obj => new TodoList(obj)));
 }
 
 function insertArticle(obj) {
@@ -160,7 +160,7 @@ function insertArticle(obj) {
             <p>URGENT</p>
           </div>
           <div class='footer__right'>
-            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn'>
+            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn' disabled>
             <p>DELETE</p>
           </div>
         </footer>
@@ -179,15 +179,18 @@ function getId(id) {
 
 function createArticleList(obj) {
   var ul = "";
-  // console.log(obj)
-  for (var i = 0; i < obj.task.length; i++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${obj.id + i}>${obj.task[i].body}</li>`;
+
+  for (var i = 0; i < obj.tasks.length; i++) {
+    var check = obj.tasks[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+    // var italic = obj.tasks[i].checked ? '<i>' : ''; {italic} ${italic}
+    ul += `<li class='article__li'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i}>${obj.tasks[i].body}</li>`;
   }
   return ul
 };
 
 
 function loadParesedArray() {
+  // console.log(listArray)
   for (var i = 0; i < listArray.length; i++) {
     insertArticle(listArray[i]);
     }
@@ -197,37 +200,34 @@ function toggleCheckBox(e) {
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/checkbox.svg';
-    } else {
+    e.target.nextSibling.fontStyle = 'none';
+    toggleChecked(e);
+  } else {
     e.target.classList.add('active');
     e.target.src = 'images/checkbox-active.svg';
+    // console.log(e);
+    e.target.nextSibling.fontStyle = 'italic';
+
     toggleChecked(e);
     }
 } 
 
 function toggleChecked(e) {
-  var listId = getTaskId(e);
-  var listIndex = getTaskIndex(taskId);
-  var todoObj = listArray[taskIndex];
-  var 
+  var listObj = listArray[getListIndex(e)];
+  var taskIndex = getTaskIndex(getTaskId(e), listObj);
+  var targetTask = listObj.tasks[taskIndex]
   
-  listArray
-  // console.log(taskId)
+  listObj.updateTask(listArray, taskIndex)
+}
   
-  // listArray.map(obj => {
-    // })
-  }
+function getTaskId(e) {
+  return e.target.dataset.id
+}
   
-  function getTaskId(e) {
-    return e.target.dataset.id
-  }
-  
-  function getTaskIndex(e) {
-    var index = null;
-    for (var i = 0; i < listArray.length; i++) {
-      index = listArray[i].task[i].id === getTaskId(e);
-      console.log(listArray[i].task[i].id)
-  }
-  return index
+function getTaskIndex(id, obj) {
+  return obj.tasks.findIndex(item => {
+    return item.id === parseInt(id)
+  })
 }
 
 function getListId(e) {
@@ -236,15 +236,27 @@ function getListId(e) {
 
 function getListIndex(e) {
   return listArray.findIndex(dataId => {
-    return getListId(e) === dataId.id
+    return parseInt(getListId(e)) === dataId.id
   })
 }
 
 function removeArticle(e) {
- e.target.closest('article').remove();
+  enableDeleteBtn(e)
+
+  // taskArray[getListIndex(e)].deleteFromStorage
+  e.target.closest("article").remove();
+}
 
 
-
-
- 
+function enableDeleteBtn(e) {
+  for (var i = 0; i < listArray.length; i++) {
+    console.log(listArray[i].tasks);
+    if (listArray[i].tasks.filter(obj => {
+    obj.checked === false 
+    })) {
+      return 
+    } else {
+      document.querySelector('#x-article-Btn').disabled = false;
+    }
+  }
 }

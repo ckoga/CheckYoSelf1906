@@ -18,7 +18,8 @@ class TodoList {
     
   }
 
-  updateTask() {
-    
+  updateTask(glbArray, taskIndex) {
+    this.tasks[taskIndex].checked = !this.tasks[taskIndex].checked;
+    this.saveToStorage(glbArray);
   }
 }
