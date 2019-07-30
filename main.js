@@ -1,4 +1,4 @@
-var taskArray = [];
+var listArray = [];
 var titleInput = document.querySelector("#title-input");
 var toDoInput = document.querySelector("#task-input");
 var createPendingBtn = document.querySelector("#make-task-list");
@@ -18,6 +18,10 @@ function mainEventHandler(e) {
 
   if (e.target.closest('#checkbox')) {
     toggleCheckBox(e);
+  }
+
+  if (e.target.closest('#x-article-btn')) {
+    removeArticle(e);
   }
 }
 
@@ -126,24 +130,22 @@ function makeToDoList() {
     urgent: false,
     id: Date.now()
   });
-  taskArray.push(taskList);
-  taskList.saveToStorage(taskArray);
-  // parseArray(taskArray);
+  listArray.push(taskList);
+  taskList.saveToStorage(listArray);
   insertArticle(taskList);
   clearForm();
-  // console.log(taskList);
 }
 
 function onLoadParse() {
   return JSON.parse(localStorage.getItem("array")) === null
-    ? (taskArray = [])
-    : (taskArray = JSON.parse(localStorage.getItem("array")));
+    ? (listArray = [])
+    : (listArray = JSON.parse(localStorage.getItem("array")));
 }
 
 function insertArticle(obj) {
   main.insertAdjacentHTML(
     "afterbegin",
-    `<article class='article' ${obj.id}>
+    `<article class='article' data-id=${obj.id}>
         <header class='article__header'>
           <h2>${obj.title}</h2>
         </header>
@@ -167,49 +169,82 @@ function insertArticle(obj) {
 }
 
 function getId(id) {
-    for (var i = 0; i < taskArray.length; i++) {
-      if (taskArray[i].id === id) {
+    for (var i = 0; i < listArray.length; i++) {
+      if (listArray[i].id === id) {
       }
-      return taskArray[i];
+      return listArray[i];
     };
 };
 
 
 function createArticleList(obj) {
   var ul = "";
-  console.log(obj.task)
+  // console.log(obj)
   for (var i = 0; i < obj.task.length; i++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${obj.id}>${obj.task[i].body}</li>`;
+    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${obj.id + i}>${obj.task[i].body}</li>`;
   }
   return ul
 };
 
 
 function loadParesedArray() {
-  for (var i = 0; i < taskArray.length; i++) {
-    insertArticle(taskArray[i]);
+  for (var i = 0; i < listArray.length; i++) {
+    insertArticle(listArray[i]);
     }
 }
 
 function toggleCheckBox(e) {
-     if (e.target.classList.contains('active')) {
-      e.target.classList.remove('active');
-      e.target.src = 'images/checkbox.svg';
+  if (e.target.classList.contains('active')) {
+    e.target.classList.remove('active');
+    e.target.src = 'images/checkbox.svg';
     } else {
-      e.target.classList.add('active');
-      e.target.src = 'images/checkbox-active.svg'
+    e.target.classList.add('active');
+    e.target.src = 'images/checkbox-active.svg';
+    toggleChecked(e);
     }
 } 
 
-function toggleCheckedProperty() {
+function toggleChecked(e) {
+  var listId = getTaskId(e);
+  var listIndex = getTaskIndex(taskId);
+  var todoObj = listArray[taskIndex];
+  var 
   
+  listArray
+  // console.log(taskId)
+  
+  // listArray.map(obj => {
+    // })
+  }
+  
+  function getTaskId(e) {
+    return e.target.dataset.id
+  }
+  
+  function getTaskIndex(e) {
+    var index = null;
+    for (var i = 0; i < listArray.length; i++) {
+      index = listArray[i].task[i].id === getTaskId(e);
+      console.log(listArray[i].task[i].id)
+  }
+  return index
 }
 
-function getTaskId(e) {
-  return e.target.closest('.article__li').dataset.id;
+function getListId(e) {
+  return e.target.closest('article').dataset.id
 }
 
-// function getIndex(e) {
-  
-// }
+function getListIndex(e) {
+  return listArray.findIndex(dataId => {
+    return getListId(e) === dataId.id
+  })
+}
 
+function removeArticle(e) {
+ e.target.closest('article').remove();
+
+
+
+
+ 
+}

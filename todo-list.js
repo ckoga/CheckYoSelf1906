@@ -1,7 +1,7 @@
 class TodoList {
   constructor(obj) {
     this.title = obj.title;
-    this.task = obj.task || [];
+    this.tasks = obj.tasks || [];
     this.urgent = false;
     this.id = obj.id || Date.now()
   }
@@ -15,7 +15,7 @@ class TodoList {
   }
 
   updateToDo() {
-   
+    
   }
 
   updateTask() {
