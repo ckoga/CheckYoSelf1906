@@ -155,7 +155,7 @@ function insertArticle(obj) {
   main.insertAdjacentHTML(
     "afterbegin",
     `<article class='article${style}' data-id=${obj.id}>
-        <header class='article__header'>
+        <header class='article__header${style}'>
           <h2>${obj.title}</h2>
         </header>
         <section class='article__section'>
@@ -163,7 +163,7 @@ function insertArticle(obj) {
             ${createArticleList(obj)}
           </ul>
         </section>
-        <footer class='article__footer'>
+        <footer class='article__footer${style}'>
           <div class='footer__left'>
             <img src=${lightning} alt='white lighting bolt' id='urgent-btn'>
             <p>URGENT</p>
