@@ -23,6 +23,10 @@ function mainEventHandler(e) {
   if (e.target.closest('#x-article-btn')) {
     removeArticle(e);
   }
+
+  if (e.target.closest('#urgent-btn')) {
+    toggleUrgent(e)
+  }
 }
 
 function onload() {
@@ -143,9 +147,11 @@ function onLoadParse() {
 }
 
 function insertArticle(obj) {
+  var lightning = obj.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
+  var style = obj.urgent ? "--urgent" : ""
   main.insertAdjacentHTML(
     "afterbegin",
-    `<article class='article' data-id=${obj.id}>
+    `<article class='article${style}' data-id=${obj.id}>
         <header class='article__header'>
           <h2>${obj.title}</h2>
         </header>
@@ -156,7 +162,7 @@ function insertArticle(obj) {
         </section>
         <footer class='article__footer'>
           <div class='footer__left'>
-            <img src='images/urgent.svg' alt='white lighting bolt' id='urgent-btn'>
+            <img src=${lightning} alt='white lighting bolt' id='urgent-btn'>
             <p>URGENT</p>
           </div>
           <div class='footer__right'>
@@ -190,7 +196,7 @@ function createArticleList(obj) {
 
 
 function loadParesedArray() {
-  // console.log(listArray)
+  console.log(listArray)
   for (var i = 0; i < listArray.length; i++) {
     insertArticle(listArray[i]);
     }
@@ -205,9 +211,7 @@ function toggleCheckBox(e) {
   } else {
     e.target.classList.add('active');
     e.target.src = 'images/checkbox-active.svg';
-    // console.log(e);
-    e.target.nextSibling.fontStyle = 'italic';
-
+                     // e.target.nextSibling.fontStyle = 'italic';
     toggleChecked(e);
     }
 } 
@@ -215,7 +219,6 @@ function toggleCheckBox(e) {
 function toggleChecked(e) {
   var listObj = listArray[getListIndex(e)];
   var taskIndex = getTaskIndex(getTaskId(e), listObj);
-  var targetTask = listObj.tasks[taskIndex]
   
   listObj.updateTask(listArray, taskIndex)
 }
@@ -231,6 +234,7 @@ function getTaskIndex(id, obj) {
 }
 
 function getListId(e) {
+  // console.log(e)
   return e.target.closest('article').dataset.id
 }
 
@@ -241,22 +245,30 @@ function getListIndex(e) {
 }
 
 function removeArticle(e) {
-  enableDeleteBtn(e)
+  var article = e.target.closest('article')
+  
+  var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
+  console.log(array)
 
-  // taskArray[getListIndex(e)].deleteFromStorage
-  e.target.closest("article").remove();
+  if (array.length === listArray[getListIndex(e)].tasks.length) {
+    e.target.closest("article").remove();
+    // taskArray[getListIndex(e)].deleteFromStorage
+  }
 }
 
-
-function enableDeleteBtn(e) {
-  for (var i = 0; i < listArray.length; i++) {
-    console.log(listArray[i].tasks);
-    if (listArray[i].tasks.filter(obj => {
-    obj.checked === false 
-    })) {
-      return 
-    } else {
-      document.querySelector('#x-article-Btn').disabled = false;
+function toggleUrgent(e) {
+  if (e.target.classList.contains('active')) {
+    e.target.classList.remove('active');
+    e.target.src = 'images/urgent.svg';
+    changeUrgent(e);
+  } else {
+    e.target.classList.add('active');
+    e.target.src = 'images/urgent-active.svg';
+    changeUrgent(e);
     }
-  }
+}
+
+function changeUrgent(e) {
+  var listObj = listArray[getListIndex(e)];
+  listObj.updateToDo(listArray);
 }
