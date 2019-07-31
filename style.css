@@ -124,6 +124,7 @@ hr {
   background-color: #41697B;
   border-color:  #41697B;
   border-top: 1px solid #41697B;
+  margin-top: 10%;
   width: 99%;
 }
 
@@ -146,6 +147,7 @@ form button {
 main {
   background-color: #F3F6F7;
   display: grid;
+  grid-auto-rows: auto;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(200px, auto));
   height: 100vh;
@@ -165,6 +167,7 @@ article {
 }
 
 h2 {
+  font-size: 1rem;
   margin: 3% 0 3% 4%;
 }
 
@@ -188,7 +191,7 @@ article ul {
 article li {
   display: flex;
   list-style: none;
-  margin: 4%;
+  margin: 5% 1%;
 }
 
 #checkbox {
@@ -245,7 +248,7 @@ article p {
   display: flex;
   font-style: italic;
   list-style: none;
-  margin: 4%;
+  margin: 5% 1%;
 }
 
 @media screen and (max-width: 610px) {
