@@ -160,6 +160,7 @@ main {
   grid-area: main;
   height: auto;
   padding: 2em;
+  width: 100%;
 }
 
 img {
@@ -172,7 +173,7 @@ article {
   break-inside: avoid;
   height: fit-content;
   margin-bottom: 30px;
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 h2 {
@@ -209,10 +210,6 @@ article li {
   width: 8%;
 }
 
-article p {
-  font-size: .5em;
-}
-
 .footer__left,
 .footer__right {
   height: auto;
@@ -222,13 +219,12 @@ article p {
 }
 
 article img {
-  width: 40%;
+  width: 30%;
   margin-right: 5%;
 }
 
 article p {
   margin: 0;
-  font-size: .5em;
 }
 
 /**** urgent article ****/
@@ -237,7 +233,7 @@ article p {
   background-color: #FFE89D;
   border: 1px solid #FFC30C;
   height: fit-content;
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 .article__header--urgent {
@@ -261,6 +257,7 @@ article p {
 }
 
 @media screen and (max-width: 610px) {
+
   nav {
     display: block;
     height: 15%;
@@ -274,7 +271,12 @@ article p {
   nav div {
     height: 28%;
     width: 90%;
-    margin: 2% 0 0 7%
+    margin: 2% 0 0 9%
+  }
+
+  nav img {
+    padding: 1%;
+    width: 10%;
   }
 
   section {
@@ -289,5 +291,12 @@ article p {
 
   main {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+
+  h1 {
+    font-size: 2.7rem;
   }
 }
