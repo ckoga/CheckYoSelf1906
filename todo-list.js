@@ -1,8 +1,8 @@
 class TodoList {
   constructor(obj) {
     this.title = obj.title;
-    this.task = obj.task || [];
-    this.urgent = false;
+    this.tasks = obj.tasks || [];
+    this.urgent = obj.urgent || false;
     this.id = obj.id || Date.now()
   }
 
@@ -10,15 +10,17 @@ class TodoList {
     localStorage.setItem('array', JSON.stringify(glbArray));
   }
 
-  deleteFromStorage() {
-  
+  deleteFromStorage(glbArray) {
+    localStorage.setItem("array", JSON.stringify(glbArray));
   }
 
-  updateToDo() {
-   
+  updateToDo(glbArray) {
+    this.urgent = !this.urgent;
+    this.saveToStorage(glbArray)
   }
 
-  updateTask() {
-    
+  updateTask(glbArray, taskIndex) {
+    this.tasks[taskIndex].checked = !this.tasks[taskIndex].checked;
+    this.saveToStorage(glbArray);
   }
 }

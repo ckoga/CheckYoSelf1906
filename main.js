@@ -1,4 +1,4 @@
-var taskArray = [];
+var listArray = [];
 var titleInput = document.querySelector("#title-input");
 var toDoInput = document.querySelector("#task-input");
 var createPendingBtn = document.querySelector("#make-task-list");
@@ -10,7 +10,6 @@ var pendingSection = document.querySelector(".section");
 form.addEventListener("focusout", disablePlusBtn);
 form.addEventListener("click", formBtnEventHandler);
 main.addEventListener('click', mainEventHandler);
-
 window.addEventListener("load", onload);
 
 function mainEventHandler(e) {
@@ -18,6 +17,14 @@ function mainEventHandler(e) {
 
   if (e.target.closest('#checkbox')) {
     toggleCheckBox(e);
+  }
+
+  if (e.target.closest('#x-article-btn')) {
+    removeArticle(e);
+  }
+
+  if (e.target.closest('#urgent-btn')) {
+    toggleUrgent(e)
   }
 }
 
@@ -106,15 +113,18 @@ function createToDoList() {
   var toDoArray = Array.from(document.querySelectorAll(".section__task"));
 
   var toDoList = [];
-
-  for (var i = 0; i < toDoArray.length; i++) {
-    toDoList.push({
-      body: toDoArray[i].innerText,
-      checked: false,
-      id: Date.now() + i
-    });
+  if (document.querySelectorAll(".section__task").innerHTML === '') {
+    return 
+    } else {
+      for (var i = 0; i < toDoArray.length; i++) {
+        toDoList.push({
+          body: toDoArray[i].innerText,
+          checked: false,
+          id: Date.now() + i
+        });
+      }
+      return toDoList;
   }
-  return toDoList;
 }
 
 function makeToDoList() {
@@ -122,29 +132,29 @@ function makeToDoList() {
 
   var taskList = new TodoList({
     title: titleInput.value,
-    task: stepsArray,
+    tasks: stepsArray,
     urgent: false,
     id: Date.now()
   });
-  taskArray.push(taskList);
-  taskList.saveToStorage(taskArray);
-  // parseArray(taskArray);
+  listArray.push(taskList);
+  taskList.saveToStorage(listArray);
   insertArticle(taskList);
   clearForm();
-  // console.log(taskList);
 }
 
 function onLoadParse() {
   return JSON.parse(localStorage.getItem("array")) === null
-    ? (taskArray = [])
-    : (taskArray = JSON.parse(localStorage.getItem("array")));
+    ? (listArray = [])
+    : (listArray = JSON.parse(localStorage.getItem("array")).map(obj => new TodoList(obj)));
 }
 
 function insertArticle(obj) {
+  var lightning = obj.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
+  var style = obj.urgent ? "--urgent" : ""
   main.insertAdjacentHTML(
     "afterbegin",
-    `<article class='article' ${obj.id}>
-        <header class='article__header'>
+    `<article class='article${style}' data-id=${obj.id}>
+        <header class='article__header${style}'>
           <h2>${obj.title}</h2>
         </header>
         <section class='article__section'>
@@ -152,13 +162,13 @@ function insertArticle(obj) {
             ${createArticleList(obj)}
           </ul>
         </section>
-        <footer class='article__footer'>
+        <footer class='article__footer${style}'>
           <div class='footer__left'>
-            <img src='images/urgent.svg' alt='white lighting bolt' id='urgent-btn'>
+            <img src=${lightning} alt='white lighting bolt' id='urgent-btn' class=${obj.urgent ? 'active' : ''}>
             <p>URGENT</p>
           </div>
           <div class='footer__right'>
-            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn'>
+            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn' disabled>
             <p>DELETE</p>
           </div>
         </footer>
@@ -167,49 +177,123 @@ function insertArticle(obj) {
 }
 
 function getId(id) {
-    for (var i = 0; i < taskArray.length; i++) {
-      if (taskArray[i].id === id) {
+    for (var i = 0; i < listArray.length; i++) {
+      if (listArray[i].id === id) {
       }
-      return taskArray[i];
+      return listArray[i];
     };
 };
 
 
 function createArticleList(obj) {
   var ul = "";
-  console.log(obj.task)
-  for (var i = 0; i < obj.task.length; i++) {
-    ul += `<li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id=${obj.id}>${obj.task[i].body}</li>`;
+
+  for (var i = 0; i < obj.tasks.length; i++) {
+    var check = obj.tasks[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+    
+    // var italic = obj.tasks[i].checked ? '<i>' : ''; {italic} ${italic}
+    ul += `<li class='article__li${obj.tasks[i].checked ? '--urgent' : ''}'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i} class=${obj.tasks[i].checked ? 'active' : ''}>${obj.tasks[i].body}</li>`;
   }
   return ul
 };
 
 
 function loadParesedArray() {
-  for (var i = 0; i < taskArray.length; i++) {
-    insertArticle(taskArray[i]);
+  for (var i = 0; i < listArray.length; i++) {
+    insertArticle(listArray[i]);
     }
 }
 
 function toggleCheckBox(e) {
-     if (e.target.classList.contains('active')) {
-      e.target.classList.remove('active');
-      e.target.src = 'images/checkbox.svg';
-    } else {
-      e.target.classList.add('active');
-      e.target.src = 'images/checkbox-active.svg'
+  //activeclass isn't there on load thats why checks dont change right awsay
+  if (e.target.classList.contains('active')) {
+    e.target.classList.remove('active');
+    e.target.src = 'images/checkbox.svg';
+    e.target.parentElement.classList.remove("article__li--urgent");
+    toggleLiUrgent(e);
+    toggleChecked(e);
+  } else {
+    e.target.classList.add('active');
+    e.target.src = 'images/checkbox-active.svg';
+    e.target.parentElement.classList.add('article__li--urgent');
+    toggleLiUrgent(e);
+    toggleChecked(e);
     }
 } 
 
-function toggleCheckedProperty() {
+function toggleChecked(e) {
+  var listObj = listArray[getListIndex(e)];
+  var taskIndex = getTaskIndex(getTaskId(e), listObj);
   
+  listObj.updateTask(listArray, taskIndex)
 }
 
+function toggleLiUrgent(e) {
+  var liTarget = getTaskId(e);
+  console.log(e.target.parentElement)
+  if (e.target.classList === 'active') {
+    liTarget.classList.add('article__li--urgent')
+  }
+}
+  
 function getTaskId(e) {
-  return e.target.closest('.article__li').dataset.id;
+  return e.target.dataset.id
+}
+  
+function getTaskIndex(id, obj) {
+  return obj.tasks.findIndex(item => {
+    return item.id === parseInt(id)
+  })
 }
 
-// function getIndex(e) {
-  
-// }
+function getListId(e) {
+  // console.log(e)
+  return e.target.closest('article').dataset.id
+}
 
+function getListIndex(e) {
+  return listArray.findIndex(dataId => {
+    // console.log(dataId)
+    return parseInt(getListId(e)) === dataId.id
+  })
+}
+
+function removeArticle(e) {
+  var article = e.target.closest('article')
+  var neededIndex = getListIndex(e);
+  var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
+
+  if (array.length === listArray[neededIndex].tasks.length) {
+    var origArray = listArray
+    // console.log(neededIndex)
+    origArray.splice(neededIndex, 1)
+    // console.log(listArray[neededIndex])
+    listArray[neededIndex].deleteFromStorage(origArray);
+    //filter array instead of splice
+    //temp array splice pass temp to delete 
+    article.remove();
+  };
+};
+``
+function toggleUrgent(e) {
+  var grandParent = e.target.parentNode.parentNode.parentNode
+  if (e.target.classList.contains('active')) {
+    e.target.classList.remove('active');
+    e.target.src = 'images/urgent.svg';
+    grandParent.classList.remove('article--urgent')
+    grandParent.classList.add('article');
+    changeUrgent(e);
+  } else {
+    grandParent.classList.remove('article')
+    grandParent.classList.add('article--urgent')
+    e.target.classList.add('active');
+    e.target.src = 'images/urgent-active.svg';
+    changeUrgent(e);
+    }
+}
+
+function changeUrgent(e) {
+  var listObj = listArray[getListIndex(e)];
+  // console.log(listObj)
+  listObj.updateToDo(listArray);
+}
