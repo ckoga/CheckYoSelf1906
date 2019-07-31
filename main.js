@@ -268,6 +268,7 @@ function removeArticle(e) {
     // origArray.splice(neededIndex, 1);
     listArray[neededIndex].deleteFromStorage(origArray, neededIndex);
     article.remove();
+    promptMessage();
   };
 };
 
@@ -294,7 +295,6 @@ function changeUrgent(e) {
 }
 
 function promptMessage() {
-  checkMain()
   if (listArray.length === 0) {
     main.insertAdjacentHTML(
       "afterbegin",
@@ -332,4 +332,5 @@ function checkMain() {
 
 function clearMain() {
   main.innerHTML = '';
+  // promptMessage();
 }
