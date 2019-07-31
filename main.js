@@ -129,6 +129,7 @@ function createToDoList() {
 }
 
 function makeToDoList() {
+  checkMain();
   var stepsArray = createToDoList();
 
   var taskList = new TodoList({
