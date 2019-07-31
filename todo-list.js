@@ -10,7 +10,8 @@ class TodoList {
     localStorage.setItem('array', JSON.stringify(glbArray));
   }
 
-  deleteFromStorage(glbArray) {
+  deleteFromStorage(glbArray, neededIndex) {
+     glbArray.splice(neededIndex, 1);
     localStorage.setItem("array", JSON.stringify(glbArray));
   }
 

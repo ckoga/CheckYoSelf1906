@@ -157,8 +157,6 @@ main {
   column-gap: 30px;
   columns: 2 250px;
   background-color: #F3F6F7;
-  grid-area: main;
-  height: auto;
   padding: 2em;
   width: 100%;
 }
@@ -172,8 +170,8 @@ article {
   border: 1px solid #C7D3D8;
   break-inside: avoid;
   height: fit-content;
+
   margin-bottom: 30px;
-  /* width: fit-content; */
 }
 
 h2 {
@@ -200,14 +198,15 @@ article ul {
 
 article li {
   display: flex;
+  font-size: 1rem;
   list-style: none;
-  margin: 5% 1%;
+  margin: 20px 10px;
 }
 
 #checkbox {
   margin-right: 5%;
   outline: none;
-  width: 8%;
+  width: 20px;
 }
 
 .footer__left,
@@ -253,7 +252,7 @@ article p {
   display: flex;
   font-style: italic;
   list-style: none;
-  margin: 5% 1%;
+  margin: 20px 10px;
 }
 
 @media screen and (max-width: 610px) {
