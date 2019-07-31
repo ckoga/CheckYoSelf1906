@@ -257,14 +257,16 @@ function getListIndex(e) {
 }
 
 function removeArticle(e) {
-  var article = e.target.closest('article')
+  var article = e.target.closest('article');
   var neededIndex = getListIndex(e);
-  var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true);
+  var array = listArray[neededIndex].tasks.filter(obj => obj.checked === true);
 
   if (array.length === listArray[neededIndex].tasks.length) {
     var origArray = listArray;
-    origArray.splice(neededIndex, 1);
-    listArray[neededIndex].deleteFromStorage(origArray);
+    console.log(listArray[neededIndex].tasks.length);
+    console.log(array.length);
+    // origArray.splice(neededIndex, 1);
+    listArray[neededIndex].deleteFromStorage(origArray, neededIndex);
     article.remove();
   };
 };
