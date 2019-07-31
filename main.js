@@ -150,7 +150,7 @@ function onLoadParse() {
 }
 
 function insertArticle(obj) {
-  clearMain();
+  checkMain();
   var lightning = obj.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
   var style = obj.urgent ? "--urgent" : ""
   main.insertAdjacentHTML(
@@ -251,7 +251,6 @@ function getListId(e) {
 
 function getListIndex(e) {
   return listArray.findIndex(dataId => {
-    // console.log(dataId)
     return parseInt(getListId(e)) === dataId.id
   })
 }
@@ -292,6 +291,7 @@ function changeUrgent(e) {
 }
 
 function promptMessage() {
+  checkMain()
   if (listArray.length === 0) {
     main.insertAdjacentHTML(
       "afterbegin",
@@ -321,8 +321,12 @@ function promptMessage() {
   }
 }
 
-function clearMain() {
+function checkMain() {
   if (listArray.length === 0) {
-  main.innerHTML = ''
+    clearMain();
   }
+}
+
+function clearMain() {
+  main.innerHTML = '';
 }
