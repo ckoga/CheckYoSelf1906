@@ -52,7 +52,7 @@ section {
 }
 
 form {
-  background-color: #587A8A;
+  background-color: #597A8B;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -118,6 +118,12 @@ form button:hover {
 
 form button:disabled {
   background-color: grey;
+}
+
+hr {
+  border-top: 1px solid #41697B;
+  padding: 0;
+  width: 120%;
 }
 
 form button {
@@ -239,4 +245,32 @@ article p {
   font-style: italic;
   list-style: none;
   margin: 4%;
+}
+
+@media screen and (max-width: 610px) {
+  nav {
+    display: block;
+    height: 20%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3rem; 
+  }
+
+  nav div {
+    height: 35%;
+    width: 90%;
+    margin: 2% 0 0 7%
+  }
+
+  section {
+    display: block;
+  }
+
+  form {
+    height: fit-content;
+    padding: 3%;
+    width: 100%;
+  }
 }
