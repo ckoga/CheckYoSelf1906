@@ -12,30 +12,33 @@ nav {
   background-color: #1F1F3D;
   display: flex;
   justify-content: space-between;
+  height: 10%;
   align-items: center;
 }
 
 h1 {
   color: #FFFFFF;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: 2.3rem;
   margin: 0;
   padding: .5%;
 }
 
 nav div {
   display: flex;
-  height: 95%;
+  height: 65%;
+  margin-right: 8px;
 }
 
 nav img {
   border-radius: 2.5px 0 0 2.5px;
   background-color: #E7ECEE;
   padding: 2%;
-  width: 9%;
+  width: 15%;
 }
 
 nav input {
+  border: 0;
   border-radius: 0 2.5px 2.5px 0;
   height: auto;
   outline: none;
@@ -99,7 +102,7 @@ form label {
 form input {
   border: 2px solid #1F1F3D;
   border-radius: 2.5px;
-  height: 5vh;
+  height: 7vh;
   outline: none;
   width: 100%;
 }
@@ -107,8 +110,8 @@ form input {
 #pending-task-btn {
   border-radius: 0 2.5px 2.5px 0;
   background-color: #1F1F3D;
-  padding: 1%;
-  width: 5vh;
+  padding: 2%;
+  width: 6vh;
 }
 
 form img:hover,
@@ -124,8 +127,8 @@ hr {
   background-color: #41697B;
   border-color:  #41697B;
   border-top: 1px solid #41697B;
-  margin-top: 10%;
-  width: 99%;
+  margin: 10% -12px;
+  width: 140%;
 }
 
 form button {
@@ -135,16 +138,11 @@ form button {
   color: #FFFFFF;
   font-size: 1.2rem;
   font-weight: 800;
-  height: 5vh;
-  margin: 3% 0;
+  height: 7vh;
+  margin: 4% 0;
 }
 
-#filter-btn {
-  border-top: 1px solid #3F6377;
-  margin-top: 10%;
-}
-
-main {
+/* main {
   background-color: #F3F6F7;
   display: grid;
   grid-auto-rows: auto;
@@ -153,17 +151,29 @@ main {
   height: 100vh;
   padding: 2%;
   width: 65%;
+} */
+
+main {
+  column-gap: 30px;
+  columns: 2 250px;
+  background-color: #F3F6F7;
+  grid-area: main;
+  height: auto;
+  padding: 2em;
+  width: 100%;
 }
 
 img {
-  width: 5%;
+  width: 6%;
 }
 
 article {
   background-color: #FAFDFF;
   border: 1px solid #C7D3D8;
+  break-inside: avoid;
   height: fit-content;
-  width: fit-content;
+  margin-bottom: 30px;
+  /* width: fit-content; */
 }
 
 h2 {
@@ -200,10 +210,6 @@ article li {
   width: 8%;
 }
 
-article p {
-  font-size: .5em;
-}
-
 .footer__left,
 .footer__right {
   height: auto;
@@ -213,13 +219,12 @@ article p {
 }
 
 article img {
-  width: 40%;
+  width: 30%;
   margin-right: 5%;
 }
 
 article p {
   margin: 0;
-  font-size: .5em;
 }
 
 /**** urgent article ****/
@@ -228,7 +233,7 @@ article p {
   background-color: #FFE89D;
   border: 1px solid #FFC30C;
   height: fit-content;
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 .article__header--urgent {
@@ -252,6 +257,7 @@ article p {
 }
 
 @media screen and (max-width: 610px) {
+
   nav {
     display: block;
     height: 15%;
@@ -265,7 +271,12 @@ article p {
   nav div {
     height: 28%;
     width: 90%;
-    margin: 2% 0 0 7%
+    margin: 2% 0 0 9%
+  }
+
+  nav img {
+    padding: 1%;
+    width: 10%;
   }
 
   section {
@@ -280,5 +291,12 @@ article p {
 
   main {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+
+  h1 {
+    font-size: 2.7rem;
   }
 }

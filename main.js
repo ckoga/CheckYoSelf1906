@@ -259,7 +259,7 @@ function getListIndex(e) {
 function removeArticle(e) {
   var article = e.target.closest('article')
   var neededIndex = getListIndex(e);
-  var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
+  var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true);
 
   if (array.length === listArray[neededIndex].tasks.length) {
     var origArray = listArray;
