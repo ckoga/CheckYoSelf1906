@@ -31,6 +31,7 @@ function mainEventHandler(e) {
 function onload() {
   onLoadParse();
   loadParesedArray();
+  promptMessage();
 }
 
 function formBtnEventHandler(e) {
@@ -149,6 +150,7 @@ function onLoadParse() {
 }
 
 function insertArticle(obj) {
+  clearMain();
   var lightning = obj.urgent ? "images/urgent-active.svg" : "images/urgent.svg";
   var style = obj.urgent ? "--urgent" : ""
   main.insertAdjacentHTML(
@@ -190,8 +192,7 @@ function createArticleList(obj) {
 
   for (var i = 0; i < obj.tasks.length; i++) {
     var check = obj.tasks[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
-    
-    // var italic = obj.tasks[i].checked ? '<i>' : ''; {italic} ${italic}
+
     ul += `<li class='article__li${obj.tasks[i].checked ? '--urgent' : ''}'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i} class=${obj.tasks[i].checked ? 'active' : ''}>${obj.tasks[i].body}</li>`;
   }
   return ul
@@ -205,7 +206,6 @@ function loadParesedArray() {
 }
 
 function toggleCheckBox(e) {
-  //activeclass isn't there on load thats why checks dont change right awsay
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/checkbox.svg';
@@ -230,7 +230,6 @@ function toggleChecked(e) {
 
 function toggleLiUrgent(e) {
   var liTarget = getTaskId(e);
-  console.log(e.target.parentElement)
   if (e.target.classList === 'active') {
     liTarget.classList.add('article__li--urgent')
   }
@@ -247,7 +246,6 @@ function getTaskIndex(id, obj) {
 }
 
 function getListId(e) {
-  // console.log(e)
   return e.target.closest('article').dataset.id
 }
 
@@ -264,17 +262,13 @@ function removeArticle(e) {
   var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
 
   if (array.length === listArray[neededIndex].tasks.length) {
-    var origArray = listArray
-    // console.log(neededIndex)
-    origArray.splice(neededIndex, 1)
-    // console.log(listArray[neededIndex])
+    var origArray = listArray;
+    origArray.splice(neededIndex, 1);
     listArray[neededIndex].deleteFromStorage(origArray);
-    //filter array instead of splice
-    //temp array splice pass temp to delete 
     article.remove();
   };
 };
-``
+
 function toggleUrgent(e) {
   var grandParent = e.target.parentNode.parentNode.parentNode
   if (e.target.classList.contains('active')) {
@@ -294,6 +288,41 @@ function toggleUrgent(e) {
 
 function changeUrgent(e) {
   var listObj = listArray[getListIndex(e)];
-  // console.log(listObj)
   listObj.updateToDo(listArray);
+}
+
+function promptMessage() {
+  if (listArray.length === 0) {
+    main.insertAdjacentHTML(
+      "afterbegin",
+      `<article class='article' data-id=>
+        <header class='article__header'>
+          <h2>Fill out Task Form</h2>
+        </header>
+        <section class='article__section'>
+          <ul class='article__ul'>
+            <li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id= class=>Name your To-Do List</li>
+            <li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id= class=>Give your To-Do List tasks</li>
+            <li class='article__li'><input type='image' src='images/checkbox.svg' id='checkbox' data-id= class=>Check off your tasks as you finish them</li>
+          </ul>
+        </section>
+        <footer class='article__footer'>
+          <div class='footer__left'>
+            <img src='images/urgent.svg' alt='white lighting bolt' id='urgent-btn' class=>
+            <p>URGENT</p>
+          </div>
+          <div class='footer__right'>
+            <img src='images/delete.svg' alt='blue x inside a white circle' id='x-article-btn' disabled>
+            <p>DELETE</p>
+          </div>
+        </footer>
+      </article>`
+    );
+  }
+}
+
+function clearMain() {
+  if (listArray.length === 0) {
+  main.innerHTML = ''
+  }
 }
