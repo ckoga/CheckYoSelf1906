@@ -121,9 +121,10 @@ form button:disabled {
 }
 
 hr {
+  background-color: #41697B;
+  border-color:  #41697B;
   border-top: 1px solid #41697B;
-  padding: 0;
-  width: 120%;
+  width: 99%;
 }
 
 form button {
@@ -250,7 +251,7 @@ article p {
 @media screen and (max-width: 610px) {
   nav {
     display: block;
-    height: 20%;
+    height: 15%;
     text-align: center;
   }
 
@@ -259,7 +260,7 @@ article p {
   }
 
   nav div {
-    height: 35%;
+    height: 28%;
     width: 90%;
     margin: 2% 0 0 7%
   }
@@ -271,6 +272,10 @@ article p {
   form {
     height: fit-content;
     padding: 3%;
+    width: 100%;
+  }
+
+  main {
     width: 100%;
   }
 }
