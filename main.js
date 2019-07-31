@@ -165,7 +165,7 @@ function insertArticle(obj) {
         </section>
         <footer class='article__footer${style}'>
           <div class='footer__left'>
-            <img src=${lightning} alt='white lighting bolt' id='urgent-btn'>
+            <img src=${lightning} alt='white lighting bolt' id='urgent-btn' class=${obj.urgent ? 'active' : ''}>
             <p>URGENT</p>
           </div>
           <div class='footer__right'>
@@ -191,21 +191,23 @@ function createArticleList(obj) {
 
   for (var i = 0; i < obj.tasks.length; i++) {
     var check = obj.tasks[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
+    
     // var italic = obj.tasks[i].checked ? '<i>' : ''; {italic} ${italic}
-    ul += `<li class='article__li'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i}>${obj.tasks[i].body}</li>`;
+    ul += `<li class='article__li'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i} class=${obj.tasks[i].checked ? 'active' : ''}>${obj.tasks[i].body}</li>`;
   }
   return ul
 };
 
 
 function loadParesedArray() {
-  console.log(listArray)
   for (var i = 0; i < listArray.length; i++) {
     insertArticle(listArray[i]);
     }
 }
 
 function toggleCheckBox(e) {
+  console.log(e.target.classList)
+  //activeclass isn't there on load thats why checks dont change right awsay
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/checkbox.svg';
@@ -243,29 +245,39 @@ function getListId(e) {
 
 function getListIndex(e) {
   return listArray.findIndex(dataId => {
+    // console.log(dataId)
     return parseInt(getListId(e)) === dataId.id
   })
 }
 
 function removeArticle(e) {
   var article = e.target.closest('article')
-  
+  var neededIndex = getListIndex(e);
   var array = listArray[getListIndex(e)].tasks.filter(obj => obj.checked === true)
 
-  if (array.length === listArray[getListIndex(e)].tasks.length) {
-    console.log(getListIndex(e))
-    listArray[getListIndex(e)].deleteFromStorage(listArray);
-    listArray.splice(getListIndex(e), 1)
+  if (array.length === listArray[neededIndex].tasks.length) {
+    var origArray = listArray
+    // console.log(neededIndex)
+    origArray.splice(neededIndex, 1)
+    // console.log(listArray[neededIndex])
+    listArray[neededIndex].deleteFromStorage(origArray);
+    //filter array instead of splice
+    //temp array splice pass temp to delete 
     article.remove();
   };
 };
 
 function toggleUrgent(e) {
+  var grandParent = e.target.parentNode.parentNode.parentNode
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/urgent.svg';
+    grandParent.classList.remove('article--urgent')
+    grandParent.classList.add('article');
     changeUrgent(e);
   } else {
+    grandParent.classList.remove('article')
+    grandParent.classList.add('article--urgent')
     e.target.classList.add('active');
     e.target.src = 'images/urgent-active.svg';
     changeUrgent(e);
@@ -274,6 +286,6 @@ function toggleUrgent(e) {
 
 function changeUrgent(e) {
   var listObj = listArray[getListIndex(e)];
-  console.log(listObj)
+  // console.log(listObj)
   listObj.updateToDo(listArray);
 }

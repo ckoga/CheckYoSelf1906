@@ -29,13 +29,17 @@ nav div {
 }
 
 nav img {
+  border-radius: 2.5px 0 0 2.5px;
   background-color: #E7ECEE;
   padding: 2%;
   width: 9%;
 }
 
 nav input {
-  height: 100%%;
+  border-radius: 0 2.5px 2.5px 0;
+  height: auto;
+  outline: none;
+  width: 85%;
 }
 
 
@@ -55,6 +59,10 @@ form {
   height: 100vh;
   padding: 1%;
   width: 35%;
+}
+
+form label {
+  color: #BAC7CF;
 }
 
 .section {
@@ -95,10 +103,12 @@ form input {
   border: 2px solid #1F1F3D;
   border-radius: 2.5px;
   height: 5vh;
+  outline: none;
   width: 100%;
 }
 
 #pending-task-btn {
+  border-radius: 0 2.5px 2.5px 0;
   background-color: #1F1F3D;
   padding: 1%;
   width: 5vh;
@@ -118,6 +128,8 @@ form button {
   border-radius: 2.5px;
   border: none;
   color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 500;
   height: 5vh;
   margin: 3% 0;
 }
@@ -193,6 +205,7 @@ article p {
 
 article img {
   width: 40%;
+  margin-right: 5%;
 }
 
 article p {
