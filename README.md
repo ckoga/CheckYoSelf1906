@@ -9,5 +9,6 @@ Project screen shots:
 
 ![screencapture-127-0-0-1-5500-index-html-2019-07-31-07_41_31](https://user-images.githubusercontent.com/45470456/62216786-aa7f0d00-b366-11e9-8bcf-cd4e8f654c86.png)
 
-
+Comp screen shots:
+<img width="750" alt="Screen Shot 2019-07-31 at 7 43 33 AM" src="https://user-images.githubusercontent.com/45470456/62216993-106b9480-b367-11e9-860b-f953ed8a2c25.png">
 
