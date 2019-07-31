@@ -14,34 +14,34 @@ nav {
   justify-content: space-between;
   height: 10%;
   align-items: center;
+  padding: 10px;
 }
 
 h1 {
   color: #FFFFFF;
   font-weight: 800;
   font-size: 2.3rem;
-  margin: 0;
-  padding: .5%;
 }
 
 nav div {
   display: flex;
-  height: 65%;
-  margin-right: 8px;
+  height: 60px;
+  width: 25%;
 }
 
 nav img {
   border-radius: 2.5px 0 0 2.5px;
   background-color: #E7ECEE;
-  padding: 2%;
-  width: 15%;
+  padding: 10px;
+  width: 60px;
 }
 
 nav input {
   border: 0;
   border-radius: 0 2.5px 2.5px 0;
-  height: auto;
+  height: 60px;
   outline: none;
+  padding: 10px;
   width: 85%;
 }
 
@@ -59,7 +59,7 @@ form {
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   padding: 1%;
   width: 35%;
 }
@@ -77,14 +77,20 @@ form ul{
 
 .section__task {
   align-items: center;
+  height: 20px;
   display: flex;
+  margin: 10px 0px;
+}
+
+#task-input {
+  border-radius: 2.5px 0px 0px 2.5px;
 }
 
 #dlt-pending {
   align-content: baseline;
   border: none;
-  margin-right: 4%;
-  width: 2.3vh;
+  margin-right: 10px;
+  width: 40px;
 }
 
 
@@ -96,21 +102,22 @@ form ul{
 
 form label {
   color: #BAC7CF;
-  margin-top: 4%;
+  margin: 10px 0px;
 }
 
 form input {
   border: 2px solid #1F1F3D;
   border-radius: 2.5px;
-  height: 7vh;
+  height: 60px;
+  padding: 10px;
   outline: none;
   width: 100%;
 }
 
 #pending-task-btn {
-  border-radius: 0 2.5px 2.5px 0;
+  border-radius: 0px 2.5px 2.5px 0px;
   background-color: #1F1F3D;
-  padding: 2%;
+  padding: 10px;
   width: 6vh;
 }
 
@@ -127,7 +134,7 @@ hr {
   background-color: #41697B;
   border-color:  #41697B;
   border-top: 1px solid #41697B;
-  margin: 10% -12px;
+  margin: 10% -16px;
   width: 140%;
 }
 
@@ -137,8 +144,8 @@ form button {
   border: none;
   color: #FFFFFF;
   font-size: 1.2rem;
-  font-weight: 800;
-  height: 7vh;
+  font-weight: 400;
+  height: 60px;
   margin: 4% 0;
 }
 
@@ -161,10 +168,6 @@ main {
   width: 100%;
 }
 
-img {
-  width: 6%;
-}
-
 article {
   background-color: #FAFDFF;
   border: 1px solid #C7D3D8;
@@ -175,7 +178,7 @@ article {
 }
 
 h2 {
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin: 3% 0 3% 4%;
 }
 
@@ -204,7 +207,7 @@ article li {
 }
 
 #checkbox {
-  margin-right: 5%;
+  margin-right: 10px;
   outline: none;
   width: 20px;
 }
@@ -213,16 +216,21 @@ article li {
 .footer__right {
   height: auto;
   text-align: center;
-  padding: 2%;
+  padding: 5px;
   width:20%;
 }
 
+#x-article-btn {
+  margin-bottom: 7px;gti dsfdfadfafdffadsfadsfasdfdf
+}
+
 article img {
-  width: 30%;
+  width: 20px;
   margin-right: 5%;
 }
 
 article p {
+  font-size: .7em;
   margin: 0;
 }
 
