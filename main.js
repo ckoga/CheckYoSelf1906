@@ -6,7 +6,9 @@ var createListBtn = document.querySelector("#pending-task-btn");
 var form = document.querySelector("form");
 var main = document.querySelector("main");
 var pendingSection = document.querySelector(".section");
+var search = document.getElementById("search-input");
 
+search.addEventListener('keyup', searchList);
 form.addEventListener("focusout", disablePlusBtn);
 form.addEventListener("click", formBtnEventHandler);
 main.addEventListener('click', mainEventHandler);
@@ -45,7 +47,11 @@ function formBtnEventHandler(e) {
   }
 
   if (e.target.closest("#make-task-list")) {
-    makeToDoList();
+    if (pendingSection.innerHTML === "") {
+      return
+    } else {
+      makeToDoList();
+    }
   }
 
   if (e.target.closest(".section__task")) {
@@ -263,25 +269,31 @@ function removeArticle(e) {
 
   if (array.length === listArray[neededIndex].tasks.length) {
     var origArray = listArray;
-    console.log(listArray[neededIndex].tasks.length);
-    console.log(array.length);
-    // origArray.splice(neededIndex, 1);
+
     listArray[neededIndex].deleteFromStorage(origArray, neededIndex);
     article.remove();
+    promptMessage();
   };
 };
 
 function toggleUrgent(e) {
   var grandParent = e.target.parentNode.parentNode.parentNode
+  var parent = e.target.parentNode.parentNode
+  var header = e.target.parentNode.parentNode.parentNode.firstElementChild
+
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/urgent.svg';
-    grandParent.classList.remove('article--urgent')
+    grandParent.classList.remove('article--urgent');
     grandParent.classList.add('article');
+    parent.classList.remove('article__footer--urgent');
+    header.classList.remove('article__header--urgent');
     changeUrgent(e);
   } else {
-    grandParent.classList.remove('article')
-    grandParent.classList.add('article--urgent')
+    grandParent.classList.remove('article');
+    grandParent.classList.add('article--urgent');
+    parent.classList.add('article__footer--urgent');
+    header.classList.add("article__header--urgent");
     e.target.classList.add('active');
     e.target.src = 'images/urgent-active.svg';
     changeUrgent(e);
@@ -294,7 +306,6 @@ function changeUrgent(e) {
 }
 
 function promptMessage() {
-  checkMain()
   if (listArray.length === 0) {
     main.insertAdjacentHTML(
       "afterbegin",
@@ -332,4 +343,17 @@ function checkMain() {
 
 function clearMain() {
   main.innerHTML = '';
+  // promptMessage();
 }
+
+function searchList() {
+  var searchInput = search.value.toLowerCase()
+  var results = listArray.filter(obj => obj.title.toLowerCase().includes(searchInput));
+
+  for (var i = 0; i < results.length; i++) {
+    var newArray = [];
+    newArray.push(results[i])
+    clearMain();
+    results.map(obj => insertArticle(obj));
+  };
+};
