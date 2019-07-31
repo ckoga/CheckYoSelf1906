@@ -10,7 +10,6 @@ var pendingSection = document.querySelector(".section");
 form.addEventListener("focusout", disablePlusBtn);
 form.addEventListener("click", formBtnEventHandler);
 main.addEventListener('click', mainEventHandler);
-
 window.addEventListener("load", onload);
 
 function mainEventHandler(e) {
@@ -193,7 +192,7 @@ function createArticleList(obj) {
     var check = obj.tasks[i].checked ? 'images/checkbox-active.svg' : 'images/checkbox.svg';
     
     // var italic = obj.tasks[i].checked ? '<i>' : ''; {italic} ${italic}
-    ul += `<li class='article__li'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i} class=${obj.tasks[i].checked ? 'active' : ''}>${obj.tasks[i].body}</li>`;
+    ul += `<li class='article__li${obj.tasks[i].checked ? '--urgent' : ''}'><input type='image' src=${check} id='checkbox' data-id=${obj.id + i} class=${obj.tasks[i].checked ? 'active' : ''}>${obj.tasks[i].body}</li>`;
   }
   return ul
 };
@@ -206,17 +205,18 @@ function loadParesedArray() {
 }
 
 function toggleCheckBox(e) {
-  console.log(e.target.classList)
   //activeclass isn't there on load thats why checks dont change right awsay
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
     e.target.src = 'images/checkbox.svg';
-    e.target.nextSibling.fontStyle = 'none';
+    e.target.parentElement.classList.remove("article__li--urgent");
+    toggleLiUrgent(e);
     toggleChecked(e);
   } else {
     e.target.classList.add('active');
     e.target.src = 'images/checkbox-active.svg';
-                     // e.target.nextSibling.fontStyle = 'italic';
+    e.target.parentElement.classList.add('article__li--urgent');
+    toggleLiUrgent(e);
     toggleChecked(e);
     }
 } 
@@ -226,6 +226,14 @@ function toggleChecked(e) {
   var taskIndex = getTaskIndex(getTaskId(e), listObj);
   
   listObj.updateTask(listArray, taskIndex)
+}
+
+function toggleLiUrgent(e) {
+  var liTarget = getTaskId(e);
+  console.log(e.target.parentElement)
+  if (e.target.classList === 'active') {
+    liTarget.classList.add('article__li--urgent')
+  }
 }
   
 function getTaskId(e) {
@@ -266,7 +274,7 @@ function removeArticle(e) {
     article.remove();
   };
 };
-
+``
 function toggleUrgent(e) {
   var grandParent = e.target.parentNode.parentNode.parentNode
   if (e.target.classList.contains('active')) {

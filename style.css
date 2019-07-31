@@ -61,10 +61,6 @@ form {
   width: 35%;
 }
 
-form label {
-  color: #BAC7CF;
-}
-
 .section {
   display: flex;
   flex-direction: column;
@@ -96,6 +92,7 @@ form ul{
 }
 
 form label {
+  color: #BAC7CF;
   margin-top: 4%;
 }
 
@@ -128,8 +125,8 @@ form button {
   border-radius: 2.5px;
   border: none;
   color: #FFFFFF;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 800;
   height: 5vh;
   margin: 3% 0;
 }
@@ -178,16 +175,18 @@ article footer {
 
 article ul {
   margin: 0;
-  padding: 0 0 0 5%;
+  padding: 0 0 0 4%;
 }
 
 article li {
   display: flex;
   list-style: none;
-  margin: 5%;
+  margin: 4%;
 }
 
 #checkbox {
+  margin-right: 5%;
+  outline: none;
   width: 8%;
 }
 
@@ -232,4 +231,12 @@ article p {
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
+}
+
+.article__li--urgent {
+  color: #BAC7CF;
+  display: flex;
+  font-style: italic;
+  list-style: none;
+  margin: 4%;
 }
