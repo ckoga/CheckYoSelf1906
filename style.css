@@ -142,7 +142,7 @@ form button {
   margin: 4% 0;
 }
 
-main {
+/* main {
   background-color: #F3F6F7;
   display: grid;
   grid-auto-rows: auto;
@@ -151,6 +151,15 @@ main {
   height: 100vh;
   padding: 2%;
   width: 65%;
+} */
+
+main {
+  column-gap: 30px;
+  columns: 2 250px;
+  background-color: #F3F6F7;
+  grid-area: main;
+  height: auto;
+  padding: 2em;
 }
 
 img {
@@ -160,7 +169,9 @@ img {
 article {
   background-color: #FAFDFF;
   border: 1px solid #C7D3D8;
+  break-inside: avoid;
   height: fit-content;
+  margin-bottom: 30px;
   width: fit-content;
 }
 
